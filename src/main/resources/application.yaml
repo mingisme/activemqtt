@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: activemqtt
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
+      ui:
+        extension:
+          jolokia:
+            url:http://localhost:9090/actuator/jolokia
+  jmx:
+    enabled: true
+management:
+  server:
+    port: 9090
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    jmx:
+      exposure:
+        include: "*"
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  info:
+    env:
+      enabled: true
+  endpoint:
+    jolokia:
+      config:
+        debug: true
+    jmx:
+      enabled: true
+    health:
+      show-details: always
