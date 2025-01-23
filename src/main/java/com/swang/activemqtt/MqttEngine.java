@@ -7,6 +7,7 @@ import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.network.DiscoveryNetworkConnector;
 import org.apache.activemq.security.SimpleAuthenticationPlugin;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -17,20 +18,23 @@ import java.util.Map;
 @Service
 public class MqttEngine {
 
-    private BrokerService brokerService;
-    private DiscoveryNetworkConnector discoveryNetworkConnector;
-
     public static final String user1 = "user1";
     public static final String password1 = "password1";
 
+    private BrokerService brokerService;
+    private DiscoveryNetworkConnector discoveryNetworkConnector;
+
+    @Value("${app.number}")
+    private String number;
+    @Value("${app.size}")
+    private String size;
+
     @PostConstruct
     public void init() throws Exception {
-        String number = System.getenv("n");
         if (number == null) {
             number = "0";
         }
         int num = Integer.parseInt(number);
-        String size = System.getenv("s");
         if (size == null) {
             size = "1";
         }
